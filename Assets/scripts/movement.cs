@@ -22,9 +22,20 @@ public class movement : MonoBehaviour
     private void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveHorizontal * moveForce, rb.velocity.y);
+
+        // Calculate current move force based on whether sprint key is pressed
         float currentMoveForce = Input.GetKey(KeyCode.LeftShift) ? sprintForce : moveForce;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(rb.velocity.x) >= 4f;
+
+        // Set animation parameters
+        anim.SetBool("run", isRunning);
+
+        // Apply horizontal movement
         rb.velocity = new Vector2(moveHorizontal * currentMoveForce, rb.velocity.y);
+
+        // Limit maximum horizontal speed
+        float clampedVelocityX = Mathf.Clamp(rb.velocity.x, -maxHorizontalSpeed, maxHorizontalSpeed);
+        rb.velocity = new Vector2(clampedVelocityX, rb.velocity.y);
 
         // Flip character sprite if moving left
         if (moveHorizontal < 0 && facingRight)
@@ -35,11 +46,12 @@ public class movement : MonoBehaviour
         {
             Flip();
         }
-        // Check if player's speed is greater than 1
-        bool isRunning = Mathf.Abs(rb.velocity.x) > 1;
+
+        // Check if player is walking (moving horizontally)
+        bool isWalking = Mathf.Abs(rb.velocity.x) > 0.1f && Mathf.Abs(rb.velocity.x) < 4f;
 
         // Set animation parameters
-        anim.SetBool("run", isRunning);
+        anim.SetBool("walk", isWalking);
         anim.SetBool("isGrounded", IsGrounded);
 
         if (Input.GetKey(KeyCode.Space) && IsGrounded)
