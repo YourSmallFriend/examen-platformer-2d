@@ -5,11 +5,12 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     public float moveForce = 5f;
-    public float maxHorizontalSpeed = 10f;
+    public float sprintForce = 7f; // Additional force for sprinting
+    public float maxHorizontalSpeed = 7f;
     public float jumpHeight = 10f;
     private Rigidbody2D rb;
     private Animator anim;
-    public bool isGrounded = true;
+    public bool IsGrounded;
     private bool facingRight = true; // Track player facing direction
 
     void Start()
@@ -18,10 +19,12 @@ public class movement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveHorizontal * moveForce, rb.velocity.y);
+        float currentMoveForce = Input.GetKey(KeyCode.LeftShift) ? sprintForce : moveForce;
+        rb.velocity = new Vector2(moveHorizontal * currentMoveForce, rb.velocity.y);
 
         // Flip character sprite if moving left
         if (moveHorizontal < 0 && facingRight)
@@ -32,12 +35,14 @@ public class movement : MonoBehaviour
         {
             Flip();
         }
+        // Check if player's speed is greater than 1
+        bool isRunning = Mathf.Abs(rb.velocity.x) > 1;
 
         // Set animation parameters
-        anim.SetFloat("Speed", Mathf.Abs(moveHorizontal));
-        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("run", isRunning);
+        anim.SetBool("isGrounded", IsGrounded);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && IsGrounded)
         {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
             anim.SetTrigger("jump");
@@ -59,7 +64,7 @@ public class movement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            isGrounded = true;
+            IsGrounded = true;
             anim.SetBool("jump", false);
         }
     }
@@ -68,7 +73,7 @@ public class movement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            isGrounded = false;
+            IsGrounded = false;
         }
     }
 }
