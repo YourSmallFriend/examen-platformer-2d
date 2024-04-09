@@ -24,8 +24,12 @@ public class movement : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
 
         // Calculate current move force based on whether sprint key is pressed
-        float currentMoveForce = Input.GetKey(KeyCode.LeftShift) ? sprintForce : moveForce;
+        float currentMoveForce = Input.GetKey(KeyCode.LeftShift) && IsGrounded ? sprintForce : moveForce;
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(rb.velocity.x) >= 4f;
+
+        if (Input.GetKey(KeyCode.Space) && IsGrounded){
+        rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        anim.SetTrigger("jump");}
 
         // Set animation parameters
         anim.SetBool("run", isRunning);
@@ -52,13 +56,6 @@ public class movement : MonoBehaviour
 
         // Set animation parameters
         anim.SetBool("walk", isWalking);
-        anim.SetBool("isGrounded", IsGrounded);
-
-        if (Input.GetKey(KeyCode.Space) && IsGrounded)
-        {
-            rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
-            anim.SetTrigger("jump");
-        }
     }
 
     void Flip()
@@ -79,6 +76,11 @@ public class movement : MonoBehaviour
             IsGrounded = true;
             anim.SetBool("jump", false);
         }
+        else if (collision.collider.CompareTag("Wall"))
+        {
+            anim.SetBool("WallPlay", true);
+            anim.SetBool("jump", false);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -86,6 +88,10 @@ public class movement : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             IsGrounded = false;
+        }
+        else if (collision.collider.CompareTag("Wall"))
+        {
+            anim.SetBool("WallPlay", false);
         }
     }
 }
