@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5873764757989376307}
   - component: {fileID: 9110990840110720035}
   - component: {fileID: 6853084399728482802}
+  - component: {fileID: -4420619274554778648}
   m_Layer: 0
   m_Name: spike
   m_TagString: Ground
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &-4420619274554778648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959496100460172035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05e9a65949106d40a267d296ddeda2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 30

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1215578018027033614}
   - component: {fileID: 9133802856486012092}
   - component: {fileID: -4183676084527958489}
+  - component: {fileID: 6387915779458621991}
   m_Layer: 0
   m_Name: saw 1
   m_TagString: Untagged
@@ -174,3 +175,16 @@ MonoBehaviour:
   moveSpeed: 5
   delayTime: 1
   waiting: 0
+--- !u!114 &6387915779458621991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550380052542684237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05e9a65949106d40a267d296ddeda2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 50
