@@ -10408,7 +10408,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150117694340450434, guid: ecc33157fcbff574a88ca9c5e71cb07c, type: 3}
       propertyPath: m_Name
-      value: player
+      value: Blip
       objectReference: {fileID: 0}
     - target: {fileID: 150117694340450434, guid: ecc33157fcbff574a88ca9c5e71cb07c, type: 3}
       propertyPath: m_TagString
@@ -10472,7 +10472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5350229216659065304, guid: ecc33157fcbff574a88ca9c5e71cb07c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.8
+      value: -16.79
       objectReference: {fileID: 0}
     - target: {fileID: 5350229216659065304, guid: ecc33157fcbff574a88ca9c5e71cb07c, type: 3}
       propertyPath: m_LocalPosition.y
